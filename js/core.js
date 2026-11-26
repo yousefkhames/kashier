@@ -18,8 +18,18 @@
     s = s.replace(',', '.');
     if (!/^\d*\.?\d*$/.test(s) || s === '.') return NaN;
     var n = parseFloat(s);
-    if (!isFinite(n) || n < 0) return NaN;
+    if (!isFinite(n) || n < 0 || n > 1e9) return NaN; // 1 billion major units is far beyond any shop; avoids float precision loss
     return Math.round(n * pow10(decimals) + 1e-9);
+  }
+
+  /** Parse a typed plain number (percent, rate) with Arabic digits and comma decimals. NaN if invalid. */
+  function toNumber(input) {
+    var s = String(input == null ? '' : input).trim()
+      .replace(/[\u0660-\u0669]/g, function (c) { return c.charCodeAt(0) - 0x0660; })
+      .replace(/[\u06F0-\u06F9]/g, function (c) { return c.charCodeAt(0) - 0x06F0; })
+      .replace(/\u066B|\u066C|،|,/g, '.');
+    if (!/^\d*\.?\d*$/.test(s) || s === '' || s === '.') return NaN;
+    return parseFloat(s);
   }
 
   function groupInt(str) { return str.replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
@@ -173,6 +183,18 @@
     return rows.filter(function (r) { return r.some(function (x) { return x.trim() !== ''; }); });
   }
 
+  /** Convert a ;- or tab-separated text to comma-separated, respecting quotes. */
+  function reDelim(text, d) {
+    var out = '', q = false;
+    for (var i = 0; i < text.length; i++) {
+      var c = text[i];
+      if (c === '"') { q = !q; out += c; }
+      else if (c === d && !q) out += ',';
+      else if (c === ',' && !q) out += '\u066C'; // stray comma inside an unquoted cell
+      else out += c;
+    }
+    return out;
+  }
   var PRODUCT_HEADER = ['name', 'price', 'category', 'sku', 'stock'];
   function productsToCSV(products, decimals) {
     return toCSV([PRODUCT_HEADER].concat(products.map(function (p) {
@@ -181,6 +203,11 @@
   }
   /** Returns {products:[...], errors:[{line,reason}]} */
   function productsFromCSV(text, decimals) {
+    text = String(text).replace(/^\uFEFF/, '');
+    var first = text.split(/\r?\n/, 1)[0] || '';
+    // Excel in Arabic/European locales saves CSV with semicolons or tabs
+    var delim = (first.split(';').length > first.split(',').length) ? ';' : (first.indexOf('\t') >= 0 && first.indexOf(',') < 0 ? '\t' : ',');
+    if (delim !== ',') text = reDelim(text, delim);
     var rows = parseCSV(text), out = { products: [], errors: [] };
     if (!rows.length) return out;
     var head = rows[0].map(function (h) { return h.trim().toLowerCase(); });
@@ -252,7 +279,7 @@
   }
 
   var api = {
-    normalizeState: normalizeState,
+    normalizeState: normalizeState, toNumber: toNumber,
     BRAND_DEFAULTS: BRAND_DEFAULTS, toMinor: toMinor, fmtMoney: fmtMoney, toArabicDigits: toArabicDigits,
     computeCart: computeCart, discountAmount: discountAmount, changeDue: changeDue, dateKey: dateKey, receiptNo: receiptNo,
     dailyTotals: dailyTotals, lastDays: lastDays, contrastRatio: contrastRatio, inkOn: inkOn, mix: mix, sanitizeBrand: sanitizeBrand,

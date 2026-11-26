@@ -2,7 +2,7 @@
   --brand:#0f766e; --brand-ink:#fff; --brand-soft:#e3f1ef; --brand-deep:#0a4f4a; --accent:#f59e0b;
   --bg:#f6f3ee; --card:#fffdf9; --ink:#1b1a17; --muted:#6f6a60; --line:#e6e0d4; --danger:#b42318; --ok:#1a7f45;
   --r:16px; --shadow:0 1px 2px rgba(40,30,10,.06),0 6px 20px rgba(40,30,10,.07);
-  --font:"Segoe UI",system-ui,-apple-system,"Noto Sans Arabic",Tahoma,"Helvetica Neue",Arial,sans-serif;
+  --font:"Cairo","Segoe UI",system-ui,-apple-system,"Noto Sans Arabic",Tahoma,"Helvetica Neue",Arial,sans-serif;
   --tab-h:64px;
 }
 *{box-sizing:border-box}

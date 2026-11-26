@@ -137,3 +137,12 @@ test('i18n: Arabic and English have identical keys, no empty values, placeholder
   assert.equal(I.make('ar')('imported', { n: 3 }), 'تم استيراد 3 منتج');
   assert.equal(I.make('en')('nope_key'), 'nope_key');
 });
+
+test('bad input: absurd amounts, Arabic percents, semicolon CSV', () => {
+  assert.ok(isNaN(K.toMinor('99999999999999999999', 2)));
+  assert.equal(K.toNumber('١٤٫٥'), 14.5);
+  assert.equal(K.toNumber('14,5'), 14.5);
+  assert.ok(isNaN(K.toNumber('abc')));
+  const r = K.productsFromCSV('name;price;stock\nشاي;12,5;4\n', 2);
+  assert.equal(r.products.length, 1); assert.equal(r.products[0].price, 1250); assert.equal(r.products[0].stock, 4);
+});

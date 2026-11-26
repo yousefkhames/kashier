@@ -21,7 +21,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const click = async (p, sel) => { await p.waitForSelector(sel, { visible: true }); await p.click(sel); };
   const text = (p, sel) => p.$eval(sel, e => e.textContent.trim());
   const clickText = async (p, sel, re) => { const h = await p.evaluateHandle((s, r) => [...document.querySelectorAll(s)].find(e => new RegExp(r).test(e.textContent) && e.offsetParent !== null), sel, re.source); if (!h.asElement()) throw new Error('no element ' + sel + ' ~ ' + re); await h.asElement().click(); };
-  const shot = async (p, name) => { if (SHOTS) { await sleep(400); fs.mkdirSync(DOCS, { recursive: true }); await p.screenshot({ path: path.join(DOCS, name + '.png') }); } };
+  const shot = async (p, name) => { if (SHOTS) { await p.evaluate(() => { const t = document.querySelector('#toast'); if (t) t.classList.remove('show'); }); await sleep(400); fs.mkdirSync(DOCS, { recursive: true }); await p.screenshot({ path: path.join(DOCS, name + '.png') }); } };
   const tiles = p => p.$$eval('.tile', t => t.length);
   const tileByName = (p, n) => p.evaluateHandle(n => [...document.querySelectorAll('.tile')].find(t => t.textContent.includes(n)), n);
 

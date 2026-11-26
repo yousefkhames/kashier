@@ -431,7 +431,7 @@
       s.paymentMethods = ['cash', 'card', 'other'].filter(function (x) { return list.indexOf(x) >= 0; });
       if (s.paymentMethods.indexOf(ui.method) < 0) ui.method = s.paymentMethods[0];
     } else if (el.type === 'checkbox') s[n] = el.checked;
-    else if (n === 'taxRate') { var v = parseFloat(String(el.value).replace(',', '.')); s.taxRate = isFinite(v) && v >= 0 && v <= 100 ? v : 0; }
+    else if (n === 'taxRate') { var v = K.toNumber(el.value); s.taxRate = isFinite(v) && v >= 0 && v <= 100 ? v : 0; }
     else if (n === 'decimals') s.decimals = parseInt(el.value, 10);
     else if (n === 'shopName') s.shopName = el.value.slice(0, 60);
     else s[n] = el.value;
@@ -537,7 +537,7 @@
     var el = e.target;
     if (el.id === 'q') { ui.q = el.value; $('#tiles').innerHTML = tilesHTML(); }
     else if (el.id === 'pq') { ui.pq = el.value; $('#plist').innerHTML = plistHTML(); }
-    else if (el.id === 'discVal') { var v = parseFloat(String(el.value).replace(',', '.')); v = isFinite(v) && v > 0 ? v : 0; if (state.disc.type === 'percent') v = Math.min(v, 100); state.disc.value = v; save(); $$('[data-act=dtype]').forEach(function (b) { var k = b.dataset.k; b.setAttribute('aria-pressed', String(k === 'none' ? !v : (k === state.disc.type))); }); updateCartDynamic(); }
+    else if (el.id === 'discVal') { var v = K.toNumber(el.value); v = isFinite(v) && v > 0 ? Math.min(v, 1e9) : 0; if (state.disc.type === 'percent') v = Math.min(v, 100); state.disc.value = v; save(); $$('[data-act=dtype]').forEach(function (b) { var k = b.dataset.k; b.setAttribute('aria-pressed', String(k === 'none' ? !v : (k === state.disc.type))); }); updateCartDynamic(); }
     else if (el.id === 'tendered') { ui.tendered = el.value; updateCartDynamic(); }
     else if (el.closest && el.closest('#sform')) onSettingInput(e);
   });

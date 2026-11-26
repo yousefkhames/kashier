@@ -90,3 +90,11 @@ The browser test covers: demo data, live branding, tax and discount maths, cash 
 ## License
 
 [MIT](LICENSE). Use it, change it, sell it to your clients.
+
+## Fonts, import and limits (round 2)
+
+- Cairo (SIL OFL) is bundled in `fonts/` as woff2 and precached by the service worker, so Arabic text looks the same offline and no request goes to Google.
+- CSV product import accepts comma, semicolon or tab separated files (Excel in Arabic locales saves with semicolons) and decimal commas.
+- Typed amounts above 1,000,000,000 are refused (float precision). Percent and tax fields accept Arabic digits.
+- No camera barcode scanning. The search box takes a USB or Bluetooth scanner (they type the code and press Enter, which adds the SKU to the cart). Browser camera scanning (`BarcodeDetector`) is not available on desktop Chrome for Windows/Linux or Firefox/Safari, and could not be tested on a real camera here, so it was left out rather than shipped half-working.
+- Printing uses the browser print dialog (receipt only, 76 mm layout). Data lives in this browser's localStorage: back it up from Settings.
