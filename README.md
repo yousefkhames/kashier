@@ -12,6 +12,15 @@ Works offline in the browser. No server, no account, no monthly fee. Arabic and 
 <img src="docs/mobile-sell.png" width="22%" alt="Sell screen on a phone">
 </p>
 
+## Screenshots
+
+Captured from the live site (https://yousefkhames.github.io/kashier/).
+
+<p>
+  <img src="docs/screenshots/live-desktop.png" alt="kashier desktop view" width="640">
+  <img src="docs/screenshots/live-mobile.png" alt="kashier mobile view" width="200">
+</p>
+
 ## The pitch
 
 A coffee kiosk, a clothing shop or a corner grocery does not need a monthly POS subscription. It needs a screen where you tap products, take cash, print a receipt and see what you sold today. Kashier does that, and it re-skins in seconds: shop name, logo, colours, currency, language and receipt text all live in a settings screen and export to a small JSON file. Make the file once per client, import it on their device, hand it over.
