@@ -1,27 +1,27 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f766e" id="themeColor">
-<meta name="description" content="Kashier: a white-label cashier and POS web app for small shops. Works offline, no server, Arabic and English.">
-<title>Kashier</title>
+<title>kashier | كاشير</title>
+<meta name="description" content="kashier: white-label cashier and point-of-sale web app for small shops. Cart, stock, shifts, receipts, CSV. Static, runs in the browser, no payment processing.">
+<meta name="theme-color" content="#F8FAFC">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="app">
-  <header class="topbar" id="topbar"></header>
-  <main id="main" tabindex="-1"></main>
-  <nav class="tabbar" id="tabbar" aria-label="Main"></nav>
-</div>
-<div id="modal" class="modal" hidden></div>
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
-<noscript><p style="padding:2rem">Kashier needs JavaScript.</p></noscript>
-<script src="js/core.js"></script>
-<script src="js/i18n.js"></script>
-<script src="js/app.js"></script>
+<a class="skip" href="#main-content">انتقل للمحتوى / Skip to content</a>
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<noscript>kashier needs JavaScript. / يحتاج جافاسكريبت.</noscript>
+<script defer src="assets/kit-theme.js"></script>
+<script defer src="assets/qrcode.js"></script>
+<script defer src="kit-base.js"></script>
+<script defer src="core.js"></script>
+<script defer src="i18n.js"></script>
+<script defer src="app.js"></script>
 </body>
 </html>
