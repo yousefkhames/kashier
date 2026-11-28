@@ -1,3 +1,21 @@
+<div align="center">
+
+<img src="assets/yk-logo.svg" width="64" alt="YK">
+
+# kashier
+
+**kashier** · demo / portfolio project
+
+**كاشير تجريبي للمحلات الصغيرة** · مشروع تجريبي للعرض
+
+[Live demo](https://yousefkhames.github.io/kashier/) · By Yousef Khames · من تطوير يوسف خميس
+
+<img src="assets/og.png" width="640" alt="kashier preview">
+
+</div>
+
+---
+
 # kashier · كاشير
 
 A white-label cashier (POS) web app for small shops: product tiles, barcode or code entry, cart, discounts, owner-set tax, cash/card/other payment *labels*, change calculator, 58/80 mm receipt printing, stock counts with low-stock flags, shifts with cash count, refunds, CSV import and export. Arabic RTL and English LTR. Static HTML, CSS and JavaScript; no build, account, API or payment processor.
